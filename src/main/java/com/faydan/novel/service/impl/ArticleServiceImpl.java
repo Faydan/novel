@@ -41,26 +41,43 @@ public class ArticleServiceImpl implements ArticleService {
         String titlePath = ArticleListUtils.getTitlePath(Constant.BI_QU_GE + articleId);
         Integer index = 1;
         while (true) {
+            // 获取请求内容
             Map<String, Object> objectMap = ArticleContentUtils.getArticle(titlePath);
+            // 获取内容中的articleList
             ArticleList articleList = (ArticleList) objectMap.get(Constant.ARTICLE_LIST);
+            // 设置关联的文章内容请求指数
             articleList.setContentNumber(index);
+            // 设置文章id
             articleList.setArticleId(articleResult.getId());
+            // 获取内容中的articleContent
             ArticleContent articleContent = (ArticleContent) objectMap.get(Constant.ARTICLE_CONTENT);
+            // 设置文章的请求指数
             articleContent.setNumber(index);
+            String preUrl;
+            String nextUrl;
+
+            // 如果第一次进来, 则没有上一章
             if (1 == index) {
-                articleContent.setPreUrl("");
+                preUrl = "/" + articleResult.getId();
             } else {
-                articleContent.setPreUrl(String.valueOf(index - 1));
+                preUrl = "/" + articleResult.getId() + "/" + (index - 1);
             }
 
+            // 判断源文章是否有下一章
             boolean nextUrlIsNotEmpty = StringUtils.isNoneEmpty(articleContent.getNextUrl());
             if (nextUrlIsNotEmpty) {
+                // 设置下一次请求的源路径
                 titlePath = Constant.BI_QU_GE + articleId + "/" + articleContent.getNextUrl();
-                articleContent.setNextUrl(String.valueOf(index + 1));
+                nextUrl = "/" + articleResult.getId() + "/" + (index + 1);
 
             } else {
-                articleContent.setNextUrl("");
+                nextUrl = "/" + articleResult.getId();
             }
+            // 设置上一章url
+            articleContent.setPreUrl(preUrl);
+            // 设置下一章url
+            articleContent.setNextUrl(nextUrl);
+            // 设置文章id
             articleContent.setArticleId(articleResult.getId());
             articleListService.save(articleList);
             articleContentService.save(articleContent);
@@ -69,7 +86,6 @@ public class ArticleServiceImpl implements ArticleService {
             if (!nextUrlIsNotEmpty) {
                 return;
             }
-
             index ++;
         }
     }
@@ -82,5 +98,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Article findById(Long articleId) {
         return articleRepository.findById(articleId).get();
+    }
+
+    @Override
+    public List<Article> findByClassifyId(Integer classifyId) {
+        return articleRepository.findByClassifyId(classifyId);
     }
 }

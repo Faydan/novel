@@ -41,7 +41,7 @@ public class ArticleUtils {
      * 获取简介信息
      */
     private static String getInfo(Document document) {
-        return document.getElementById("intro").select("p").text();
+        return document.getElementById("intro").html();
     }
 
     /**

@@ -6,4 +6,3 @@ spring:
     url: jdbc:mysql://localhost:3306/novel?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=true
     username: root
     password: root
-

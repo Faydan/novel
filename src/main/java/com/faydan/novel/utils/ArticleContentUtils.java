@@ -27,7 +27,8 @@ public class ArticleContentUtils {
      * 获取内容
      */
     private static String getContent(Document document) {
-        return document.getElementById("content").html();
+        String content = document.getElementById("content").html();
+        return content.replaceAll(";<=\"=\"/js/\"></>", "");
 //        return content.replaceAll("&nbsp;", " ")
 //                .replaceAll("<br>", "\r\n")
 //                .replaceAll("<script>readx();</script>", "")

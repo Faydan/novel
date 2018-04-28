@@ -24,4 +24,9 @@ public class ArticleListServiceImpl implements ArticleListService {
     public List<ArticleList> findListByArticleId(Long articleId) {
         return articleListRepository.findByArticleId(articleId);
     }
+
+    @Override
+    public ArticleList findByArticleIdAndContentNumber(Long articleId, Integer number) {
+        return articleListRepository.findByArticleIdAndContentNumber(articleId, number);
+    }
 }

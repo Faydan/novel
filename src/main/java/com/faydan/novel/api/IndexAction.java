@@ -20,12 +20,8 @@ public class IndexAction {
     @Resource
     private ClassifyService classifyService;
 
-    @GetMapping("/")
-    public String index(Model model) {
-        Iterable<Article> articleList = articleService.findAll();
-        List<Classify> classifyList = classifyService.findListByLevel(1);
-        model.addAttribute("articleList", articleList);
-        model.addAttribute("classifyList", classifyList);
-        return "index/index";
+    @GetMapping("/demo")
+    public String demo() {
+        return "index/demo";
     }
 }

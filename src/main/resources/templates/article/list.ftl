@@ -1,6 +1,5 @@
-<#include "../layout/layout.ftl">
-<@header title="首页" />
-
+<#include "../layout/layout.ftl" />
+<@header title="列表" />
 <div class="container gallery-container">
     <div class="tz-gallery">
         <div class="row">
@@ -12,7 +11,7 @@
                                 <img src="${article.cover}?x-oss-process=style/imgSize" alt="Park">
                             </a>
                             <div class="caption">
-                                <h3 class="articleTitle">${article.title}</h3>
+                                <h3 style="line-height: 0">${article.title}</h3>
                             <#--<p>${article.info}</p>-->
                             </div>
                         </div>
